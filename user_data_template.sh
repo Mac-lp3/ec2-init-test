@@ -10,7 +10,7 @@ if [ $(which nginx) ] ; then
 else
 	echo "configuring apt to install nginx and its plugins..."
 	apt-get update
-	apt-get -yq install curl gnupg2 ca-certificates lsb-release
+	apt-get -yq install curl gnupg2 ca-certificates lsb-release systemd
 	echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | tee /etc/apt/sources.list.d/nginx.list
 	curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 	mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
@@ -51,6 +51,12 @@ function hello(r) {
 export default { hello }
 JSFILE
 
-# TODO start the service if not already
-# TODO register the service to run on start
+# update the systemd service file to use this config
+sed -i 's|ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf|ExecStart=/usr/sbin/nginx -c /usr/local/etc/nginx/nginx.conf|g' /lib/systemd/system/nginx.service
+
+# start the service if not already
+systemctl start nginx
+
+# register the service to run on start
+systemctl enable nginx
 
