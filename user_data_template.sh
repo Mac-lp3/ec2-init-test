@@ -51,12 +51,47 @@ function hello(r) {
 export default { hello }
 JSFILE
 
+# SysVInit set up
+cat <<VINIT > /etc/init.d/nginx
+#!/bin/bash
+
+start() {
+	nginx -c /usr/local/etc/nginx/nginx.conf
+}
+
+stop() {
+	nginx -s stop
+}
+
+case \$1 in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		sleep 5
+		start
+		;;
+esac
+exit 0
+VINIT
+
+# run the service on start up
+chmod +x /etc/init.d/nginx
+update-rc.d nginx defaults
+
+# start the service
+/etc/init.d/nginx start
+
 # update the systemd service file to use this config
-sed -i 's|ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf|ExecStart=/usr/sbin/nginx -c /usr/local/etc/nginx/nginx.conf|g' /lib/systemd/system/nginx.service
+# sed -i 's|ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf|ExecStart=/usr/sbin/nginx -c /usr/local/etc/nginx/nginx.conf|g' /lib/systemd/system/nginx.service
 
 # start the service if not already
-systemctl start nginx
+# systemctl start nginx
 
 # register the service to run on start
-systemctl enable nginx
+# systemctl enable nginx
 
