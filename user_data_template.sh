@@ -10,7 +10,7 @@ if [ $(which nginx) ] ; then
 else
 	echo "configuring apt to install nginx and its plugins..."
 	apt-get update
-	apt-get -yq install curl gnupg2 ca-certificates lsb-release systemd
+	apt-get -yq install curl gnupg2 ca-certificates lsb-release
 	echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | tee /etc/apt/sources.list.d/nginx.list
 	curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 	mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
@@ -21,7 +21,7 @@ else
 fi
 
 # create conf directory and add config file
-mkdir -p  /usr/local/etc/nginx
+mkdir -p /usr/local/etc/nginx
 cat <<NGINCONF > /usr/local/etc/nginx/nginx.conf
 load_module modules/ngx_http_js_module.so;
 
