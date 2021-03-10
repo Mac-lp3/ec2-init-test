@@ -8,8 +8,11 @@
 ~~* ssh the box~~
 ~~* line by exec test~~
 ~~* curl to local host test~~
-* TF
-  * VPC
-  * Subnet
-  * IG
-  * Instance
+* ~~TF~~
+  * ~~VPC~~
+  * ~~Subnet~~
+  * ~~IG~~
+  * ~~Instance~~
+  * user data script
+  * connect & curl
+  * restart & curl 
