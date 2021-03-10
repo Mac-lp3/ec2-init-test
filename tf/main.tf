@@ -17,3 +17,11 @@ module "network" {
   environment = var.environment
   sysname     = var.sysname
 }
+
+module "instances" {
+  source = "./instance"
+
+  environment      = var.environment
+  sysname          = var.sysname
+  public_subnet_id = module.network.public_subnet_id
+}

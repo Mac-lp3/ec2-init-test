@@ -4,7 +4,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
   tags = {
     Name        = "${var.sysname}-vpc"
-    Environment = "${var.environment}"
+    Environment = var.environment
   }
 }
 
@@ -12,7 +12,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
   tags = {
     Name        = "${var.sysname}-igw"
-    Environment = "${var.environment}"
+    Environment = var.environment
   }
 }
 
@@ -22,7 +22,7 @@ resource "aws_subnet" "public_subnet" {
   map_public_ip_on_launch = true
   tags = {
     Name        = "${var.sysname}-public-subnet"
-    Environment = "${var.environment}"
+    Environment = var.environment
   }
 }
 
@@ -30,7 +30,7 @@ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc.id
   tags = {
     Name        = "${var.sysname}-public-route-table"
-    Environment = "${var.environment}"
+    Environment = var.environment
   }
 }
 
@@ -67,6 +67,6 @@ resource "aws_security_group" "default" {
 
   tags = {
     Name        = "${var.sysname}-sg"
-    Environment = "${var.environment}"
+    Environment = var.environment
   }
 }
