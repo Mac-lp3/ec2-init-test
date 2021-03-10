@@ -4,6 +4,9 @@
 # all ${var_name} occurences will be replaced during TF apply.
 # see the TF files for their values.
 
+APP_NAME=ec2test
+LISTEN_PORT=8000
+
 # install nginx if not already
 if [ $(which nginx) ] ; then
 	echo "NGINX already installed";
@@ -20,9 +23,9 @@ else
 	apt-get -yq install nginx nginx-module-njs
 fi
 
-# create conf directory and add config file
-mkdir -p /usr/local/etc/nginx
-cat <<NGINCONF > /usr/local/etc/nginx/nginx.conf
+# replace default nginx config
+cp /etc/nginx/nginx.conf /etc/nginx/nginx_original.conf
+cat <<NGINCONF > /etc/nginx/nginx.conf
 load_module modules/ngx_http_js_module.so;
 
 events {}
@@ -41,7 +44,7 @@ http {
 NGINCONF
 
 # add the JS file to the conf directory
-cat <<JSFILE > /usr/local/etc/nginx/http.js
+cat <<JSFILE > /etc/nginx/http.js
 'use strict'
 
 function hello(r) {
@@ -51,47 +54,10 @@ function hello(r) {
 export default { hello }
 JSFILE
 
-# SysVInit set up
-cat <<VINIT > /etc/init.d/nginx
-#!/bin/bash
-
-start() {
-	nginx -c /usr/local/etc/nginx/nginx.conf
-}
-
-stop() {
-	nginx -s stop
-}
-
-case \$1 in
-	start)
-		start
-		;;
-	stop)
-		stop
-		;;
-	restart)
-		stop
-		sleep 5
-		start
-		;;
-esac
-exit 0
-VINIT
-
 # run the service on start up
 chmod +x /etc/init.d/nginx
-update-rc.d nginx defaults
+update-rc.d nginx enable 
 
 # start the service
 /etc/init.d/nginx start
-
-# update the systemd service file to use this config
-# sed -i 's|ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf|ExecStart=/usr/sbin/nginx -c /usr/local/etc/nginx/nginx.conf|g' /lib/systemd/system/nginx.service
-
-# start the service if not already
-# systemctl start nginx
-
-# register the service to run on start
-# systemctl enable nginx
 
