@@ -5,4 +5,7 @@
 ~~* line by exec test~~
 ~~* curl to local host test~~
 * TF
-
+  * VPC
+  * Subnet
+  * IG
+  * Instance

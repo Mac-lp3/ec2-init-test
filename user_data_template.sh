@@ -4,7 +4,7 @@
 # all ${var_name} occurences will be replaced during TF apply.
 # see the TF files for their values.
 
-APP_NAME=ec2test
+APP_NAME=ec2app
 LISTEN_PORT=8000
 
 # install nginx if not already
