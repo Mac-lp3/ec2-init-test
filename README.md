@@ -13,6 +13,7 @@
   * ~~Subnet~~
   * ~~IG~~
   * ~~Instance~~
-  * user data script
-  * connect & curl
+  * ~~user data script~~
+  * ~~connect & curl~~
   * restart & curl 
+* Curl from here
