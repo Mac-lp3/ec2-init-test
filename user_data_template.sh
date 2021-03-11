@@ -1,11 +1,12 @@
 #!/bin/bash -vx
 # 
 # this is a terraform template file.
-# all ${var_name} occurences will be replaced during TF apply.
+# all var_name occurences will be replaced during TF apply.
 # see the TF files for their values.
 
 APP_NAME=ec2app
-LISTEN_PORT=8000
+LISTEN_PORT=${listen_port}
+echo "value of listen port: $LISTEN_PORT, ${listen_port}"
 
 # install nginx if not already
 if [ $(which nginx) ] ; then

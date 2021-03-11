@@ -13,3 +13,7 @@ variable "environment" {
   default     = "dev"
 }
 
+variable "listen_port" {
+  description = "Port where you can hit the server"
+  default     = "8000"
+}

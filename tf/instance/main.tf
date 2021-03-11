@@ -9,6 +9,13 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+data "template_file" "user_data" {
+  template = "${file("${path.module}/../../user_data_template.sh")}"
+  vars = {
+    listen_port = var.listen_port
+  }
+}
+
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.nano"
