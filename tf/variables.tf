@@ -17,3 +17,8 @@ variable "listen_port" {
   description = "Port where you can hit the server"
   default     = "8000"
 }
+
+variable "ssh_key_name" {
+  description = "The name of an EXISTING key pair used to ssh into the ec2 box"
+  default     = "nginx-ssh-test"
+}

@@ -10,7 +10,7 @@ data "aws_ami" "ubuntu" {
 }
 
 data "template_file" "user_data" {
-  template = "${file("${path.module}/../../user_data_template.sh")}"
+  template = file("${path.module}/../../user_data_template.sh")
   vars = {
     listen_port = var.listen_port
   }
@@ -21,6 +21,7 @@ resource "aws_instance" "web" {
   instance_type = "t2.nano"
   subnet_id     = var.public_subnet_id
   user_data     = data.template_file.user_data.rendered
+  key_name      = var.ssh_key_name
 
   tags = {
     Name        = "${var.sysname}-ec2"

@@ -25,4 +25,5 @@ module "instances" {
   sysname          = var.sysname
   listen_port      = var.listen_port
   public_subnet_id = module.network.public_subnet_id
+  ssh_key_name     = var.ssh_key_name
 }
