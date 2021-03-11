@@ -50,7 +50,7 @@ data "http" "myip" {
   url = "http://ipv4.icanhazip.com"
 }
 
-resource "aws_security_group" "default" {
+resource "aws_security_group" "ec2-sg" {
   name        = "${var.sysname}-sg"
   description = "Allow inbound/outbound from the VPC"
   vpc_id      = aws_vpc.vpc.id
@@ -61,6 +61,13 @@ resource "aws_security_group" "default" {
     to_port   = "0"
     protocol  = "-1"
     self      = true
+  }
+
+  ingress {
+    from_port = "22"
+    to_port = "22"
+    protocol = "tcp"
+    cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
   }
   
   egress {
