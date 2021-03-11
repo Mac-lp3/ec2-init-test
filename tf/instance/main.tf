@@ -20,6 +20,7 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.nano"
   subnet_id     = var.public_subnet_id
+  user_data     = data.template_file.user_data.rendered
 
   tags = {
     Name        = "${var.sysname}-ec2"
