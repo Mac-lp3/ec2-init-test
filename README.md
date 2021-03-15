@@ -1,6 +1,6 @@
 ## Purpose
 * Self learning
-* Testing a set up/approach for a different system
+* Test a potential set up for a different project
 
 ## TODOs
 ~~* manual vpc & nat set up~~
@@ -15,5 +15,6 @@
   * ~~Instance~~
   * ~~user data script~~
   * ~~connect & curl~~
-  * restart & curl 
-* Curl from here
+  * ~~restart & curl~~
+* ~~Curl from here~~
+
