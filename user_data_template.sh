@@ -6,12 +6,13 @@
 
 APP_NAME=ec2app
 LISTEN_PORT=${listen_port}
-echo "value of listen port: $LISTEN_PORT, ${listen_port}"
+echo "Listening on port: $LISTEN_PORT, ${listen_port}"
 
 # install nginx if not already
 if [ $(which nginx) ] ; then
 	echo "NGINX already installed";
 else
+	#TODO detect which distro and install accordingly
 	echo "configuring apt to install nginx and its plugins..."
 	apt-get update
 	apt-get -yq install curl gnupg2 ca-certificates lsb-release

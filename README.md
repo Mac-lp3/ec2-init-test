@@ -13,6 +13,8 @@
 ```
 
 ## TODOs
+* dynamic distro-based install
+* dynamic distro-based service set up
 ~~* manual vpc & nat set up~~
 ~~* manual ec2 start~~
 ~~* ssh the box~~
